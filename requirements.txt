@@ -1,0 +1,4 @@
+pyscard
+pyautogui
+pyperclip
+pyinstaller

@@ -2,6 +2,7 @@
 
 import time
 import sys
+import ctypes
 
 try:
     from smartcard.System import readers
@@ -64,10 +65,28 @@ def find_reader():
     return reader_list[0]
 
 
+def check_single_instance():
+    """Ensure only one instance of the app is running."""
+    mutex = ctypes.windll.kernel32.CreateMutexW(None, False, "NfcReaderApp_SingleInstance")
+    if ctypes.windll.kernel32.GetLastError() == 183:  # ERROR_ALREADY_EXISTS
+        ctypes.windll.user32.MessageBoxW(
+            0,
+            "L'application est déjà en route !\nUne seule instance est autorisée.",
+            "Application déjà lancée",
+            0x30  # MB_ICONWARNING
+        )
+        sys.exit(1)
+    return mutex  # keep reference alive for the process lifetime
+
+
 def main():
+    _mutex = check_single_instance()
+
     print("=" * 55)
     print("  NFC Card Reader - Keyboard Typer Mode (Windows)")
     print("=" * 55)
+    print()
+    print(" L'application c'est lancée !")
     print()
     
     reader = find_reader()

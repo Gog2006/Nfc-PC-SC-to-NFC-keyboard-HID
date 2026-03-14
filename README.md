@@ -37,18 +37,26 @@ See `requirements.txt` for the complete list of dependencies.
 
 2. Ensure your NFC reader is connected and recognized by Windows
 
-3. Install the required Python packages:
-```bash
-python -m pip install -r requirements.txt
-```
+3. Install the required Python packages.
 
 Note: If you encounter build errors with pyscard, restart your terminal after installing the C++ Build Tools.
+
+## Quick start (clone and run in 2-3 commands)
+
+From the project folder:
+
+```bash
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python convertor.py
+```
 
 ## Usage
 
 ### Running the Python Script
 
-1. Run the script:
+If dependencies are already installed:
+
 ```bash
 python convertor.py
 ```
@@ -65,32 +73,14 @@ python convertor.py
 
 To create a standalone .exe file:
 
-1. Build the executable without icon:
+1. Build from the included spec file:
 ```bash
-python -m PyInstaller --onefile --windowed --name="nfc-reader" convertor.py
+.venv\Scripts\pyinstaller nfc-reader.ico.spec --clean
 ```
 
-Or with a custom icon (optional):
-   - Create or download an icon file named `icon.ico` and place it in the project folder
-   - Build with icon:
-```bash
-python -m PyInstaller --onefile --windowed --icon=icon.ico --name="nfc-reader" convertor.py
-```
-
-2. Find the executable in the `dist` folder: `dist\nfc-reader.exe`
+2. Find the executable in `dist\NFC-Reader.exe`
 
 3. You can distribute this .exe file without requiring Python installation
-
-**Build Options:**
-- `--onefile`: Creates a single .exe file
-- `--windowed`: No console window (remove if you want to see output)
-- `--icon=icon.ico`: Sets the application icon (optional)
-- `--name="nfc-reader"`: Sets the output filename
-
-**Note:** For the console version (to see status messages), use:
-```bash
-python -m PyInstaller --onefile --name="nfc-reader" convertor.py
-```
 
 ## How It Works
 

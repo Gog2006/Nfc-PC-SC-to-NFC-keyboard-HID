@@ -1,7 +1,7 @@
-./dist 
-./build
+dist/
+build/
 __pycache__/
+*.py[cod]
+.venv/
 *.spec
-dist/*
-build/*
-nfc-rider.ico/*
+!nfc-reader.ico.spec
